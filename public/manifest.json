@@ -1,6 +1,5 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "CommandBar",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,7 +7,7 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "CB-Thumbnail.png",
       "type": "image/png",
       "sizes": "192x192"
     },
