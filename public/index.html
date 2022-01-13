@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -24,7 +27,85 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>CommandBar</title>
+    <script>
+      (function () { var o = "a4d5eb69", a = ["Object.assign", "Symbol", "Symbol.for"].join("%2C"), n = window; function r(o, a) { void 0 === a && (a = !1), "complete" !== document.readyState && window.addEventListener("load", r.bind(null, o, a), { capture: !1, once: !0 }); var n = document.createElement("script"); n.type = "text/javascript", n.async = a, n.src = o, document.head.appendChild(n) } function t() { var a; if (void 0 === n.CommandBar) { delete n.__CommandBarBootstrap__; var t = Symbol.for("CommandBar::configuration"), e = Symbol.for("CommandBar::orgConfig"), m = Symbol.for("CommandBar::disposed"), i = Symbol.for("CommandBar::isProxy"), l = Symbol.for("CommandBar::queue"), d = Symbol.for("CommandBar::unwrap"), c = [], s = localStorage.getItem("commandbar.lc"), u = s && s.includes("local") ? "http://localhost:8000" : "https://api.commandbar.com", p = Object.assign(((a = {})[t] = { uuid: o }, a[e] = {}, a[m] = !1, a[i] = !0, a[l] = new Array, a[d] = function () { return p }, a), n.CommandBar); n.CommandBar = new Proxy(p, { get: function (o, a) { return a in p ? p[a] : function () { var o = Array.prototype.slice.call(arguments); o.unshift(a), p[l].push(o) } } }), null !== s && c.push("lc=" + s), c.push("version=2"), r(u + "/latest/" + o + "?" + c.join("&"), !0) } } void 0 === Object.assign || "undefined" == typeof Symbol || void 0 === Symbol.for ? (n.__CommandBarBootstrap__ = t, r("https://polyfill.io/v3/polyfill.min.js?version=3.101.0&callback=__CommandBarBootstrap__&features=" + a)) : t(); })();
+      
+      window.CommandBar.boot("lch-local", { friend: "true" });
+      window.CommandBar.addContext("cereals",
+        [
+         {label: "Trix", id: "1", icon:"🐰", promo: "true",},
+         {label: "Lucky Charms", id: "2", icon: "🍀", promo: "true",},
+         {label: "Apple Jacks", id: "3", icon: "🍎", promo: "false",}
+        ]
+      );
+      const companies = [
+        { label: "Dunder Mifflin", id: "1", slug: "dmiff", contact: "Michael Scott", icon: "📄" },
+        { label: "Santa's Workshop", id: "2", slug: "theshop", contact: "Santa Claus", icon: "🎁" },
+        { label: "Super Store", id: "3", slug: "super", contact: "Amy", icon: "🧼" },
+        { label: "Team Rocket", id: "5", slug: "rocket", contact: "Jesse & James", icon: "🚀" },
+        { label: "Theranos", id: "4", slug: "theranos", contact: "Elizabeth Holmes", icon: "🩸" },
+      ];
+      // add companies to CommandBar context
+      window.CommandBar.addContext("companies", 
+        companies
+      );
+      let team = ["Anita", "Zhou", "Rodger", "Terrence", "Mary"];
+      window.CommandBar.addContext("team", team);
+      window.CommandBar.addContext("records", ["Record 1", "Record 2", "Record 3"]);
+      window.CommandBar.addContext("myWorkspaces", ["Personal", "Engineering", "Customer Success", "Operations"]);
+
+      window.CommandBar.addCallback(
+          "announceTeammate",
+          (args) => {
+            console.log(args);
+            if (args.teammate._createdByCommandBar) {
+              team.push(args.teammate.value);
+              window.CommandBar.addContext("team", team)
+              console.log(`${args.teammate.value} was successfully added to your team :)`);
+            }
+            // console.log(`You are now viewing ${args.value}'s profile!`);
+          }
+      );
+      window.CommandBar.addCallback("inviteTeammates", (args) => {
+        console.log(args);
+        // alert(`${args.teammates[0]} and ${args.teammates[1]} have been added to the project`);
+      });
+      window.CommandBar.addCallback("displayTime", (args) => console.log(args.time));
+      window.CommandBar.addCallback("Order cereal", (args) => alert(`We ordered ${args.quantity} boxes of ${args.cereal.label} for you!`));
+      window.CommandBar.addCallback("reloadRecords", (args) => alert(`${args.record} reloaded successfully`));
+      window.CommandBar.addCallback("Receive recommendation", (args) => alert(`Thank you for the recommendation. Our team will get back to you shortly!`));
+      window.CommandBar.addCallback("Send recommendations", (args) => alert(`Thank you for the recommendation. Our team will get back to you shortly!`));
+      window.CommandBar.addCallback("Say hi", (args) => console.log(`Hello, ${args.name}!`));
+      window.CommandBar.addCallback("registerVolunteer", (args) => console.log(`Volunteer reigstered!`));
+
+      const myHandler = (eventName, eventData) => {
+          console.log({ eventName, eventData });
+      };
+      window.CommandBar.addEventHandler(myHandler);
+
+      // window.CommandBar.addContext("sites", [], {
+      //     searchOptions: {
+      //       searchFunction: () => [
+      //         { site: "pied-piper.commandbar.com", slug: "pied-piper-cb", deploy: "Deploys from GitHub", team: "Owned by CommandBar" },
+      //         { site: "labs.commandbar.com", slug: "commandbar-com-labs", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "frames-editor-labs.commandbar.com", slug: "editor-labs", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "frames-commandbar-labs.commandbar.com", slug: "commandbar-labs", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "frames-proxy-labs.commandbar.com", slug: "proxy-labs", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "d.commandbar.com", slug: "commandbar-docs", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "frames-editor-prod.commandbar.com", slug: "editor-prod", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "app.commandbar.com", slug: "commandbar-com-prod", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "frames-commandbar-prod.commandbar.com", slug: "commandbar-prod", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "frames-proxy-prod.commandbar.com", slug: "proxy-prod", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "frames-editor-branch2.commandbar.com", slug: "editor-branch2", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "frames-commandbar-branch2.commandbar.com", slug: "commandbar-branch2", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "frames-proxy-branch2.commandbar.com", slug: "proxy-branch2", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "frames-editor-branch.commandbar.com", slug: "editor-branch", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //         { site: "frames-commandbar-branch.commandbar.com", slug: "commandbar-branch", deploy: "Manual deploys", team: "Owned by CommandBar" },
+      //       ]
+      //     }
+      //   });
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
