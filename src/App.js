@@ -10,6 +10,18 @@ function App() {
     window.open('/foo.com/page3/' + args.company.slug);
   });
 
+  window.CommandBar.addContext("chores", ["Fix garage","Mow the lawn","Schedule dentist appointment","Bake chocolate chip cookies","Make dinner"]);
+  window.CommandBar.addContext("mice", ["Remy","Auguste","Linguini"]);
+
+  async function shortcuts() {
+    let myShortcuts = await window.CommandBar.getShortcuts();
+    console.log("logging shortcuts!");
+    console.log(myShortcuts);
+    return "success";
+  }
+
+  shortcuts();
+
   return (
     <div className="App">
       <header className="App-header">
