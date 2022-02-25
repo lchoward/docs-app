@@ -4,7 +4,43 @@ import './index.css';
 // import CommandBar from '@commandbar/stable';
 
 function App() {
-  window.CommandBar.boot("lch-local", { friend: "true" });
+  // async function myBoot() {
+  //   const myHMAC = "8ea22cd6db6f966deca6bbd0ec19bbc8d461cba79d985230590e1027d3e258c6";
+  //   await window.CommandBar.boot("lch-feb", { friend: "false" }, { hmac: myHMAC });
+  //   console.log("async boot");
+  //   return;
+  // }
+
+  // myBoot();
+  const myHMAC = "8ea22cd6db6f966deca6bbd0ec19bbc8d461cba79d985230590e1027d3e258c6";
+  window.CommandBar.boot("lch-feb", { friend: "false" }, { hmac: myHMAC });
+
+  // async function myAddCommand(details) {
+  //   await window.CommandBar.addCommand(details);
+  //   console.log("async addCommand");
+  //   return;
+  // }
+
+  // myAddCommand({
+  //   text: 'Remove teammates',
+  //   name: 'remove_teammates',
+  //   arguments: {
+  //   teammates: {
+  //     'type': 'context',
+  //     'input_type': 'multi-select',
+  //     'value': 'team',
+  //     'order_key': 0,
+  //     'label': 'Select the teammates you want to add'
+  //   }
+  //   },
+  //   template: {
+  //     type: 'callback',
+  //     value: 'inviteTeammates',
+  //     operation: 'blank',
+  //   },
+  //   icon: 'minuscircle'
+  // });
+  
   window.CommandBar.addContext("cereals",
     [
       {label: "Trix", id: "1", icon:"🐰", promo: "true",},
@@ -19,6 +55,7 @@ function App() {
     { label: "Team Rocket", id: "5", slug: "rocket", contact: "Jesse & James", icon: "🚀" },
     { label: "Theranos", id: "4", slug: "theranos", contact: "Elizabeth Holmes", icon: "🩸" },
   ];
+
   // add companies to CommandBar context
   window.CommandBar.addContext("companies", 
     companies
@@ -51,6 +88,8 @@ function App() {
   window.CommandBar.addCallback("Send recommendations", (args) => alert(`Thank you for the recommendation. Our team will get back to you shortly!`));
   window.CommandBar.addCallback("Say hi", (args) => console.log(`Hello, ${args.name}!`));
   window.CommandBar.addCallback("registerVolunteer", (args) => console.log(`Volunteer reigstered!`));
+  // callback that does nothign
+  window.CommandBar.addCallback("doNothing", (args) => console.log("did nothing"));
 
   const myHandler = (eventName, eventData) => {
       console.log({ eventName, eventData });
