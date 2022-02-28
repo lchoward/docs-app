@@ -4,6 +4,9 @@ import './index.css';
 import './fonts/Montserrat/Montserrat-Regular.ttf';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { init } from 'commandbar';
+
+init('a4d5eb69', {environment: 'staging'});
 
 ReactDOM.render(
   <React.StrictMode>
