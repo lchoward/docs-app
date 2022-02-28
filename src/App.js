@@ -12,8 +12,9 @@ function App() {
   // }
 
   // myBoot();
-  const myHMAC = "8ea22cd6db6f966deca6bbd0ec19bbc8d461cba79d985230590e1027d3e258c6";
-  window.CommandBar.boot("lch-feb", { friend: "false" }, { hmac: myHMAC });
+  // const myHMAC = "8ea22cd6db6f966deca6bbd0ec19bbc8d461cba79d985230590e1027d3e258c6";
+  // window.CommandBar.boot("lch-feb", { friend: "false" }, { hmac: myHMAC });
+  window.CommandBar.boot("lch-feb", { friend: "false" });
 
   // async function myAddCommand(details) {
   //   await window.CommandBar.addCommand(details);
