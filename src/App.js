@@ -57,6 +57,12 @@ function App() {
     { label: "Theranos", id: "4", slug: "theranos", contact: "Elizabeth Holmes", icon: "🩸" },
   ];
 
+  // add user role type to CommandBar context
+  window.CommandBar.addContext("role", "OrganizationMember");
+
+  // add pet name to CommandBar context
+  window.CommandBar.addContext("pet", "Ralph");
+
   // add companies to CommandBar context
   window.CommandBar.addContext("companies", 
     companies
