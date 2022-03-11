@@ -13,8 +13,8 @@ function App() {
 
   // myBoot();
   // const myHMAC = "8ea22cd6db6f966deca6bbd0ec19bbc8d461cba79d985230590e1027d3e258c6";
-  // window.CommandBar.boot("lch-feb", { friend: "false" }, { hmac: myHMAC });
-  window.CommandBar.boot("lch-feb", { friend: "false" });
+  // window.CommandBar.boot("lch-mar", { friend: "false" }, { hmac: myHMAC });
+  window.CommandBar.boot("lch-mar", { friend: "false" });
 
   // async function myAddCommand(details) {
   //   await window.CommandBar.addCommand(details);
@@ -46,7 +46,8 @@ function App() {
     [
       {label: "Trix", id: "1", icon:"🐰", promo: "true",},
       {label: "Lucky Charms", id: "2", icon: "🍀", promo: "true",},
-      {label: "Apple Jacks", id: "3", icon: "🍎", promo: "false",}
+      {label: "Apple Jacks", id: "3", icon: "🍎", promo: "false",},
+      {label: "Fruity Pebbles", icon: "🍇", promo: "false",}
     ]
   );
   const companies = [
@@ -131,8 +132,25 @@ function App() {
     window.open('/foo.com/page3/' + args.company.slug);
   });
 
+  // context for misc stuff
   window.CommandBar.addContext("chores", ["Fix garage","Mow the lawn","Schedule dentist appointment","Bake chocolate chip cookies","Make dinner"]);
   window.CommandBar.addContext("mice", ["Remy","Auguste","Linguini"]);
+  
+  // context for lazy vs eager loaders
+  const catFacts = () => {
+    const res = fetch('https://catfact.ninja/facts')
+    .then(response => response.json());
+    console.log('Load Facts')
+    return res.data;
+  };
+
+  // window.CommandBar.addContext("catFacts", () => {
+  //   return fetch('https://catfact.ninja/facts')
+  //   .then(response => console.log('Loaded facts'))
+  // });
+
+  window.CommandBar.addContext("catFacts", []);
+  window.CommandBar.addContext("catFacts", catFacts);
 
   async function shortcuts() {
     let myShortcuts = await window.CommandBar.getShortcuts();
