@@ -7,9 +7,6 @@ import reportWebVitals from "./reportWebVitals";
 import { init } from "commandbar";
 
 init('a4d5eb69', {environment: 'staging'}); // DemoOrganization
-// init('0aa756f4'); // Transeo
-// init('4cd02873'); // Laika
-// init("42424242"); // local org
 
 ReactDOM.render(
   <React.StrictMode>
