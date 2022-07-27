@@ -1,6 +1,7 @@
 // import logo from './logo.svg';
 import "./App.css";
 import "./index.css";
+import React, { useState, useEffect } from 'react';
 // import CommandBar from '@commandbar/stable';
 
 function App() {
@@ -12,42 +13,105 @@ function App() {
   // }
 
   // myBoot();
-  // const myHMAC = "8ea22cd6db6f966deca6bbd0ec19bbc8d461cba79d985230590e1027d3e258c6";
+  const myHMAC = "8ea22cd6db6f966deca6bbd0ec19bbc8d461cba79d985230590e1027d3e258c6";
   // window.CommandBar.boot("lch-mar", { friend: "false" }, { hmac: myHMAC });
-  window.CommandBar.boot("lch-mar", { friend: "false", fiend: "true" });
 
-  // async function myAddCommand(details) {
-  //   await window.CommandBar.addCommand(details);
-  //   console.log("async addCommand");
-  //   return;
-  // }
+  window.CommandBar.boot("luke-1", 
+    { friend: "false", fiend: "true" }, 
+    // { formFactor: { type: 'inline', rootElement: 'commandbar-inline-root'}, hmac: myHMAC }
+    { hmac: myHMAC}
+  );
 
-  // myAddCommand({
-  //   text: 'Remove teammates',
-  //   name: 'remove_teammates',
-  //   arguments: {
-  //   teammates: {
-  //     'type': 'context',
-  //     'input_type': 'multi-select',
-  //     'value': 'team',
-  //     'order_key': 0,
-  //     'label': 'Select the teammates you want to add'
-  //   }
-  //   },
-  //   template: {
-  //     type: 'callback',
-  //     value: 'inviteTeammates',
-  //     operation: 'blank',
-  //   },
-  //   icon: 'minuscircle'
-  // });
+  window.CommandBar.setSummonHotkey();
 
+  // window.CommandBar.setFormFactor({ type: 'inline', rootElement: 'commandbar-inline-root' }); // for inline bar
+
+  // const customHeader = ''
+  const customHeader = () => `
+    <div>
+      <div class="CommandBarHeader">
+        <div>
+        <svg width="30" height="13" viewBox="0 0 59 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.2878 7.38529C17.2878 1.62826 14.0709 0.500244 8.5144 0.500244H0V25.1661H4.09426V14.2286H8.27209L13.5696 25.1661H18.2069L12.241 13.6771C14.2046 13.1006 17.2878 11.538 17.2878 7.38529ZM13.1936 7.38529C13.1936 11.2205 11.9903 13.0086 9.42516 13.0086H4.09426V1.74523H8.5144C11.7898 1.74523 13.1936 3.42472 13.1936 7.36023V7.38529Z" fill="white"></path><path d="M31.6103 7.11791C30.2989 7.09812 29.0052 7.42162 27.8576 8.05628C26.7099 8.69094 25.7481 9.61472 25.0678 10.7359V0.500244H20.9902V25.1661H25.0678V14.0531C25.0678 11.8973 27.1483 8.76397 30.407 8.76397C33.39 8.76397 33.9582 10.4351 33.9582 13.5601V25.1661H38.0692V14.1701C38.0692 9.42407 35.9301 7.11791 31.6103 7.11791Z" fill="white"></path><path d="M49.6416 7.11743C45.2382 7.11743 40.793 9.96671 40.793 16.3086C40.793 22.6506 45.2382 25.4998 49.6416 25.4998C54.045 25.4998 58.4902 22.7174 58.4902 16.3755C58.4902 10.0336 54.045 7.11743 49.6416 7.11743ZM54.1704 16.3086C54.1704 22.0406 53.5437 24.447 49.6416 24.447C46.4497 24.4805 45.1212 23.3441 45.1212 16.3755C45.1212 10.6352 45.7562 8.23709 49.6499 8.23709C52.8334 8.20367 54.1704 9.33168 54.1704 16.3755V16.3086Z" fill="white"></path></svg>
+        </div>
+      <div class="CBHeaderTitle">CommandBar</div>
+      </div>
+    </div>`
+  const customFooter = "<div>Hello></div>"
+  
+  async function myAddCommand(details) {
+    await window.CommandBar.addCommand(details);
+    console.log("async addCommand");
+    return;
+  }
+
+  useEffect(() => {
+    // myAddCommand({
+    //   category: 477,
+    //   text: 'Remove teammates',
+    //   name: 'remove_teammates',
+    //   arguments: {
+    //   teammates: {
+    //     'type': 'context',
+    //     'input_type': 'multi-select',
+    //     'value': 'team',
+    //     'order_key': 0,
+    //     'label': 'Select the teammates you want to add'
+    //   }
+    //   },
+    //   template: {
+    //     type: 'callback',
+    //     value: 'inviteTeammates',
+    //     operation: 'blank',
+    //   },
+    //   icon: 'minuscircle',
+    //   hotkey_mac: 'g x',
+    //   hotkey_win: 'g x',
+    // })
+
+    // window.CommandBar.setCustomComponent("header", customHeader);
+    // window.CommandBar.setCustomComponent("footer", customFooter);
+
+    // Adding for Appcues
+    window.Appcues.identify(
+      "lucas-test", // unique, required
+      {
+
+        // recommended (optional) properties
+
+        createdAt: 1566932390, // Unix timestamp of user signup date
+        purchasedAd: 1566932395, // Unix timestamp of account purchase date (leave null if empty)
+        planTier: "Standard", // Current user’s plan tier
+        role: "Admin", // Current user’s role or permissions
+        accountId: "1234", // Current user's account ID
+        firstName: "John", // current user's first name
+
+        // additional suggestions
+
+        companyName: "Acme Corp", // Current user’s company name
+        email: "john.doe@example.com", // Current user's email
+        location: "90210", // a zipcode, state, or country enables location-based targeting
+        version: "2.0", // users on different versions may need to see different content
+        language: "spanish", // for multi-language applications
+        renewalDate: 1577880288 // to remind users to renew
+      }
+    );
+  }, []);
+
+  // window.CommandBar.addContext("cereals", [
+  //   { label: "Trix", id: "1", icon: "🐰", promo: "true", similarProducts: ["A", "B", "C"] },
+  //   { label: "Lucky Charms", id: "2", icon: "🍀", promo: "true", similarProducts: ["A", "B", "D"] },
+  //   { label: "Apple Jacks", id: "3", icon: "🍎", promo: "false", similarProducts: ["C", "D", "E"] },
+  //   { label: "Fruity Pebbles", icon: "🍇", promo: "false", similarProducts: ["A", "B", "C"] },
+  // ]);
+
+  // cereals without icons
   window.CommandBar.addContext("cereals", [
-    { label: "Trix", id: "1", icon: "🐰", promo: "true" },
-    { label: "Lucky Charms", id: "2", icon: "🍀", promo: "true" },
-    { label: "Apple Jacks", id: "3", icon: "🍎", promo: "false" },
-    { label: "Fruity Pebbles", icon: "🍇", promo: "false" },
+    { label: "Trix", id: "1", promo: "true", similarProducts: ["A", "B", "C"] },
+    { label: "Lucky Charms", id: "2", promo: "true", similarProducts: ["A", "B", "D"] },
+    { label: "Apple Jacks", id: "3", promo: "false", similarProducts: ["C", "D", "E"] },
+    { label: "Fruity Pebbles", promo: "false", similarProducts: ["A", "B", "C"] },
   ]);
+
   const companies = [
     {
       label: "Dunder Mifflin",
@@ -76,6 +140,9 @@ function App() {
       slug: "rocket",
       contact: "Jesse & James",
       icon: "🚀",
+      mission: 'To protect the world from devastation! To unite all peoples within our nation! To denounce the evils of truth and love! To extend our reach to the stars above!',
+      stage: 'Prospect',
+      number: '415-1962-030',
     },
     {
       label: "Theranos",
@@ -85,6 +152,31 @@ function App() {
       icon: "🩸",
     },
   ];
+
+  window.CommandBar.addRecords("companies", companies);
+
+  // window.CommandBar.generateDetailPreview((rowdata, rowmetadata) => {
+  //   if (rowmetadata.type === 'parameter' && rowmetadata.contextKey === 'companies')
+  //     return `
+  //     <h2>Company Summary</h2>
+  //     <div class="cb-record-container">
+  //       <div class="cb-info">
+  //         <div class="cb-label-main">Main Contact(s)</div> 
+  //         <div class="cb-value-main">${rowdata.contact}</div>
+  //       </div>
+  //       <div class="cb-info">
+  //         <div class="cb-label-main">Phone Number</div>
+  //         <div class="cb-value-main">${rowdata.number}</div>
+  //       </div>
+  //       <div class="cb-info">
+  //         <div class="cb-label-main">Stage</div>
+  //         <div class="cb-value-main">${rowdata.stage}</div>
+  //       </div>
+  //     </div>
+  //     <div class="cb-value-sec">${rowdata.mission}</div>
+  //     `;
+  //   return;
+  // });
 
   const integrations = [
     {
@@ -104,14 +196,162 @@ function App() {
     },
   ];
 
+  const groups = [
+    {
+      icon: 'https://website-assets-fw.freshworks.com/attachments/cjqf1fpz604sbq2fzb1z9jczx-freshdesk-2x.one-half.png',
+      label: 'Guatemala',
+      description: 'Travel to the beautiful mountains',
+    },
+    {
+      icon: 'https://website-assets-fw.freshworks.com/attachments/ck67gqxbc0h5w8efzldzi5rie-fmarketer.one-half.png',
+      label: 'India',
+      description: 'The cities and nature are incredible',
+    },
+    {
+      icon: 'https://website-assets-fw.freshworks.com/attachments/cjqf13n6t04fnpxfzyvbtvhg7-freshchat-2x.one-half.png',
+      label: 'Freshchat',
+      description: 'Communicate in context and collaborate with teams…',
+    },
+    {
+      icon: 'https://website-assets-fw.freshworks.com/attachments/cjqf69pt500egeufzgtg3tgrd-freshconnect-2x.one-half.png',
+      label: 'Freshconnect',
+      description: 'Make and receive calls, automatically log and record…',
+    },
+    {
+      icon: 'https://website-assets-fw.freshworks.com/attachments/cjqf1c9rz04k7pxfzldie19pk-freshcaller-2x.one-half.png',
+      label: 'Freshcaller',
+      description: 'Book appointments, schedule meetings and calls on your…',
+    },
+  ];
+
+  const payees = [
+    { id: 1, label: 'AWS', account: 'International (IN)', currency: 'USD',
+      totalPayment: 2704, openBills: 0, unpaidBills: 0, 
+      type: 'Business', phone: '+91 22 2680 0485', email: 'billing@barrierbreak.com',
+      address: '1234 Example Address', City: 'Mumbai', Region: 'Mumbai', Zip: '400063', Country: 'IN'
+    },
+    { id: 1, label: 'Google', account: 'International (IN)', currency: 'USD',
+      totalPayment: 2704, openBills: 0, unpaidBills: 0, 
+      type: 'Business', phone: '+91 22 2680 0485', email: 'billing@barrierbreak.com',
+      address: '1234 Example Address', City: 'Mumbai', Region: 'Mumbai', Zip: '400063', Country: 'IN'
+    },
+    { id: 1, label: 'CleanShot', account: 'International (IN)', currency: 'USD',
+      totalPayment: 2704, openBills: 0, unpaidBills: 0, 
+      type: 'Business', phone: '+91 22 2680 0485', email: 'billing@barrierbreak.com',
+      address: '1234 Example Address', City: 'Mumbai', Region: 'Mumbai', Zip: '400063', Country: 'IN'
+    },
+    { id: 1, label: 'Barrier Break', account: '🇮🇳 International (IN)', currency: 'USD',
+      totalPayment: '$2704.00', openBills: 0, unpaidBills: 0, 
+      type: 'Business', phone: '+91 22 2680 0485', email: 'billing@barrierbreak.com',
+      address: '1234 Example Address', City: 'Mumbai', Region: 'Mumbai', Zip: '400063', Country: 'IN'
+    },
+    { id: 1, label: 'Theranos', account: 'International (IN)', currency: 'USD',
+      totalPayment: 2704, openBills: 0, unpaidBills: 0, 
+      type: 'Business', phone: '+91 22 2680 0485', email: 'billing@barrierbreak.com',
+      address: '1234 Example Address', City: 'Mumbai', Region: 'Mumbai', Zip: '400063', Country: 'IN'
+    },
+    { id: 1, label: 'Juicero', account: 'International (IN)', currency: 'USD',
+      totalPayment: 2704, openBills: 0, unpaidBills: 0, 
+      type: 'Business', phone: '+91 22 2680 0485', email: 'billing@barrierbreak.com',
+      address: '1234 Example Address', City: 'Mumbai', Region: 'Mumbai', Zip: '400063', Country: 'IN'
+    },
+    { id: 1, label: 'Dunder Mifflin', account: 'International (IN)', currency: 'USD',
+      totalPayment: 2704, openBills: 0, unpaidBills: 0, 
+      type: 'Business', phone: '+91 22 2680 0485', email: 'billing@barrierbreak.com',
+      address: '1234 Example Address', City: 'Mumbai', Region: 'Mumbai', Zip: '400063', Country: 'IN'
+    },
+    { id: 1, label: 'Doordash', account: 'International (IN)', currency: 'USD',
+      totalPayment: 2704, openBills: 0, unpaidBills: 0, 
+      type: 'Business', phone: '+91 22 2680 0485', email: 'billing@barrierbreak.com',
+      address: '1234 Example Address', City: 'Mumbai', Region: 'Mumbai', Zip: '400063', Country: 'IN'
+    },
+  ];
+
+  window.CommandBar.addRecords('payees', payees);
+  // window.CommandBar.generateDetailPreview((rowdata, rowmetadata) => {
+  //   if (rowmetadata.type === 'parameter' && rowmetadata.contextKey === 'payees')
+  //     return `
+  //     <h2>Summary</h2>
+  //     <div class="cb-record-container">
+  //       <div class="cb-info">
+  //         <div class="cb-label-main">Total payments</div> 
+  //         <div class="cb-value-main">${rowdata.totalPayment}</div>
+  //       </div>
+  //       <div class="cb-info">
+  //         <div class="cb-label-main">Open bills</div>
+  //         <div class="cb-value-main">${rowdata.openBills}</div>
+  //       </div>
+  //       <div class="cb-info">
+  //         <div class="cb-label-main">Unpaid bills</div>
+  //         <div class="cb-value-main">${rowdata.unpaidBills}</div>
+  //       </div>
+  //     </div>
+  //     <div class="cb-record-container">
+  //       <div class="cb-info">
+  //         <div class="cb-label-main">Account type</div> 
+  //         <div class="cb-value-sec">${rowdata.account}</div>
+  //       </div>
+  //       <div class="cb-info">
+  //         <div class="cb-label-main">Currency</div> 
+  //         <div class="cb-value-sec">${rowdata.currency}</div>
+  //       </div>
+  //     </div>
+  //     <h2>Other Details</h2>
+  //     <div class="cb-record-container">
+  //       <div class="cb-info">
+  //         <div class="cb-label-main">Type</div>
+  //         <div class="cb-value-sec">${rowdata.type}</div>
+  //       </div>
+  //       <div class="cb-info">
+  //         <div class="cb-label-main">Phone</div>
+  //         <div class="cb-value-sec">${rowdata.phone}</div>
+  //       </div>
+  //       <div class="cb-info">
+  //         <div class="cb-label-main">Email</div>
+  //         <div class="cb-value-sec">${rowdata.email}</div>
+  //       </div>
+  //     </div>
+  //     `;
+  //   return;
+  // });
+
+  // window.CommandBar.addRecords('groups', groups, { labelKey: 'label', descriptionKey: 'description' });
+
+  const friends = [
+    { label: "Pam", id: 1},
+    { label: "Jim", id: 2},
+    { label: "Michael", id: 3},
+    { label: "Holly", id: 4},
+    { label: "Kelly", id: 5},
+    { label: "Ryan", id: 6},
+  ];
+
+  const users = [];
+
+    for (let i = 1; i < 20; i++) {
+      users.push({
+        name: 'Group ' + i,
+        id: i,
+        icon: `https://picsum.photos/seed/${i}/300/200`,
+        description: `Manage your groups here`,
+      });
+    }
+
+    window.CommandBar.addRecords('users', users, {
+      labelKey: 'name',
+      descriptionKey: 'description',
+    });
+
   // add user role type to CommandBar context
   window.CommandBar.addContext("role", "OrganizationMember");
 
   // add pet name to CommandBar context
   window.CommandBar.addContext("pet", "Ralph");
 
+  // add friends to context
+  window.CommandBar.addContext("friends", friends);
+
   // add companies to CommandBar context
-  window.CommandBar.addContext("companies", companies);
   window.CommandBar.addContext("integrations", integrations);
   let team = ["Anita", "Zhou", "Rodger", "Terrence", "Mary"];
   window.CommandBar.addContext("team", team);
@@ -167,6 +407,20 @@ function App() {
   window.CommandBar.addCallback("doNothing", (args) =>
     console.log("did nothing")
   );
+
+  // callbacks that interact with a web request command
+  window.CommandBar.addCallback("webReqSuccess", (response, request) => {
+    console.log("web request success")
+    console.log(response)
+    console.log(request)
+    console.log(arguments)
+  });
+
+  window.CommandBar.addCallback("webReqError", (args, context) => {
+    console.log("web request error")
+    console.log(`args are: ${args}`)
+    console.log(`context is: ${context}`)
+  });
 
   const myHandler = (eventName, eventData) => {
     console.log({ eventName, eventData });
@@ -228,14 +482,14 @@ function App() {
   window.CommandBar.addContext("catFacts", []);
   window.CommandBar.addContext("catFacts", catFacts);
 
-  async function shortcuts() {
-    let myShortcuts = await window.CommandBar.getShortcuts();
-    console.log("logging shortcuts!");
-    console.log(myShortcuts);
-    return "success";
-  }
+  // async function shortcuts() {
+  //   let myShortcuts = await window.CommandBar.getShortcuts();
+  //   console.log("logging shortcuts!");
+  //   console.log(myShortcuts);
+  //   return "success";
+  // }
 
-  shortcuts();
+  // shortcuts();
 
   return (
     <div className="App">
@@ -249,6 +503,7 @@ function App() {
           {/* Learn React */}
         </a>
       </header>
+      <div id="commandbar-inline-root" style={{ height: 40, width: 375, }}></div>
     </div>
   );
 }
